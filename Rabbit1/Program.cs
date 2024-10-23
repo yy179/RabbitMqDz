@@ -35,7 +35,7 @@ namespace Rabbit1
             var factory = new ConnectionFactory() { HostName = "localhost" };
             using var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
-            channel.QueueDeclare(queue: "SecondQueue", durable: false, exclusive: false, autoDelete: false, arguments: null);
+            channel.QueueDeclare(queue: "MainQueue", durable: false, exclusive: false, autoDelete: false, arguments: null);
             var consumer = new EventingBasicConsumer(channel);
             consumer.Received += (model, ea) =>
             {
@@ -46,7 +46,7 @@ namespace Rabbit1
                     Console.WriteLine($"Received: {message}");
                 }
             };
-            channel.BasicConsume(queue: "SecondQueue", autoAck: true, consumer: consumer);
+            channel.BasicConsume(queue: "MainQueue", autoAck: true, consumer: consumer);
             while (true)
             {
                 Thread.Sleep(100);

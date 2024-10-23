@@ -24,7 +24,7 @@ namespace Rabbit1
                 string message = Console.ReadLine();
                 if (string.IsNullOrEmpty(message)) continue;
 
-                string prefMessage = $"Rabbit1:{message}";
+                string prefMessage = $"Rabbit1:{" " + message}";
                 var body = Encoding.UTF8.GetBytes(prefMessage);
                 channel.BasicPublish(exchange: "", routingKey: "MainQueue", basicProperties: null, body: body);
                 Console.WriteLine(" [X] Sent: {0}", prefMessage);
